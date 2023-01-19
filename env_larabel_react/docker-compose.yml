@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  proxy:
+    #コンテナの名前
+    container_name: kchat-proxy
+    #dockerfileの場所
+    build: ./docker/nginx
+    #ホスト(PC)のゲスト(コンテナ)のポートを紐づけ
+    #{ホスト}:{ゲスト}
+    ports:
+      - "8000:80"
+    #ホストのディレクトリとゲストのディレクトリの紐づけ(同期)
+    volumes:
+      #ngixの設定ファイルは/etc/nginx/conf.d/default.confに置く
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      #ngixのドキュメントルートは/usr/share/nginx/html固定
+      - ./src:/usr/share/nginx/html
+  app:
+    #コンテナの名前
+    container_name: kchat-app
+    #dockerfileの場所
+    build: ./docker/php
+    volumes:
+     - ./docker/php/php.ini:/usr/local/php/php.ini
+    #phpコンテナ内のドキュメントルートは/var/www/html 
+     - ./src/:/var/www/html 
+  db:
+  
