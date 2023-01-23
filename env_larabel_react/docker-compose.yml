@@ -25,4 +25,19 @@ services:
     #phpコンテナ内のドキュメントルートは/var/www/html 
      - ./src/:/var/www/html 
   db:
+    container_name: kchat-db
+    build: ./docker/mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+      - fullstack-db-volume:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: kchat_db
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+volumes:
+  fullstack-db-volume:
+
   
