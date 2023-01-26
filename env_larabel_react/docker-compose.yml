@@ -1,3 +1,7 @@
+#Dockerfileに設定を記述する基準は「永続化したいかどうか」です。 
+#永続化したい場合や再配布したい設定はDockerfileに記述し、
+#環境によって変更したい・されそうな設定はdocker-compose.ymlに記述します。<=らしいです
+
 version: "3.9"
 services:
   proxy:
@@ -34,9 +38,10 @@ services:
       - fullstack-db-volume:/var/lib/mysql
     environment:
       MYSQL_DATABASE: kchat_db
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: rootpassword #rootUserのパス
       MYSQL_USER: user
       MYSQL_PASSWORD: password
+  #phpmyadminを使えばmysqlがブラウザから閲覧可能
   phpmyadmin:
     container_name: fullstack-phpmyadmin
     image: phpmyadmin/phpmyadmin
