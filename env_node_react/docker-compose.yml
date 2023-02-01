@@ -1,9 +1,59 @@
 version: '3.9'
 services: 
+  #MYSQL
+  db:
+   container_name: kchat-db-n
+   build: ./docker/mysql 
+   ports: 
+    - 3008:3008
+   volumes: 
+    - db-store:/var/lib/mysql 
+   environment:
+    MYSQL_DATABASE: database_node
+    MYSQL_PASSWORD: mysqlPass
+    MYSQL_ROOT_PASSWORD: rootpassword
+    MYSQL_USER: user
+   networks:
+    backend:
+      ipv4_address: 172.28.1.10
+  #EXPRESS Server
   app: 
-   container_name: kchat-app
+   container_name: kchat-app-n
    build: ./docker/node
-   ports: 3001:3001
+   ports: 
+    - 3001:3001
    volumes:
-   - ./dist/ /usr/app/
-
+   - ./src/api/:/usr/app/ #！！！ nodeのv-15からホストのWORKDIRを/usr/appで指定しないとエラーが出る！！！
+   networks:
+    backend:
+      ipv4_address: 172.28.1.4
+   depends_on:
+      - db
+  #FromtEnd
+  react:
+    container_name: kchat-front-n
+    build: ./docker/react
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    tty: true
+    ports:
+      - '8080:3000'
+    volumes:
+      - ./src/react:/app
+    working_dir: /app
+    command: bash -c 'npm start && npm run build'
+    networks:
+      - backend
+    depends_on:
+      - app
+#サブネットのIPを自分で指定 172.28.1.0~24
+networks:
+  backend:
+    driver: bridge
+    name: app_network
+    ipam:
+      config:
+          - subnet: 172.28.1.0/24
+volumes:
+  db-store:
+  
