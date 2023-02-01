@@ -1,5 +1,5 @@
 FROM node:19-alpine
-#WORKDIR /
-#RUN npm install
-#CMD "npm" "start"
+WORKDIR /usr/app
+COPY ./../../src/api/package*.json /usr/app
+RUN npm install
 CMD "npm" "start"
