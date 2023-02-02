@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import Room from './Room';
 import { testlog } from './repository/chatRepository';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route,Link,useParams } from 'react-router-dom';
 import './App.css';
 
 function App() {
@@ -16,8 +16,9 @@ function App() {
                 KCat
               </p>
             </header>
+            <Link to='/room/1'>Room1</Link> <Link to='/room/2'>Room2</Link><Link to='/room/3'>Room3</Link>
         </Route>
-        <Route path="/room">
+        <Route path="/room/:roomId">
           <Room messages={testlog.messages}/>
         </Route>
       </div>

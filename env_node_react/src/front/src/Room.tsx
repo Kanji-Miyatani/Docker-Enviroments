@@ -1,8 +1,10 @@
+import { useParams } from "react-router-dom";
 import { Log } from "./interfaces/Chat";
 const Room = ({messages}:Log)=>{
+    const { roomId } = useParams<{roomId: string}>();
     return(
         <>
-            <h1>チャット部屋</h1>
+            <h1>チャット部屋:ルーム{roomId}</h1>
             <ul>
                 {
                     messages.map((m)=>{

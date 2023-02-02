@@ -26,6 +26,11 @@ services:
     - 3001:3001
    volumes:
    - ./src/api/:/usr/app/ #！！！ nodeのv-15からホストのWORKDIRを/usr/appで指定しないとエラーが出る！！！
+   environment:
+    MYSQL_DATABASE: database_node
+    MYSQL_PASSWORD: mysqlPass
+    MYSQL_ROOT_PASSWORD: rootpassword
+    MYSQL_USER: user
    networks:
     backend:
       ipv4_address: 172.28.1.4
