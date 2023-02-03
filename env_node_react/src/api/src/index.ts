@@ -9,7 +9,7 @@ const chatServer = chat(app);
     console.log(`Kchat server is listening on port ${PORT}`);
  })
  app.get('/',(req,res)=>{
-    return res.send("<h1>KChatへようこそ。</h1>");
+    return res.send("<h1>KChatへようこそ!!!!</h1>");
  })
  
 

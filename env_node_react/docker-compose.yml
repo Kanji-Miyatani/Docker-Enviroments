@@ -5,14 +5,15 @@ services:
    container_name: kchat-db-n
    build: ./docker/mysql 
    ports: 
-    - 3008:3008
+    - 3008:3306
    volumes: 
     - db-store:/var/lib/mysql 
    environment:
-    MYSQL_DATABASE: database_node
-    MYSQL_PASSWORD: mysqlPass
+    MYSQL_DATABASE: test
+    MYSQL_PASSWORD: kchatadminpass000
     MYSQL_ROOT_PASSWORD: rootpassword
     MYSQL_USER: user
+    CHOKIDAR_USEPOLLING: true
    networks:
     backend:
       ipv4_address: 172.28.1.10
@@ -27,10 +28,11 @@ services:
    volumes:
    - ./src/api/:/usr/app/ #！！！ nodeのv-15からホストのWORKDIRを/usr/appで指定しないとエラーが出る！！！
    environment:
-    MYSQL_DATABASE: database_node
-    MYSQL_PASSWORD: mysqlPass
+    MYSQL_DATABASE: test
+    MYSQL_PASSWORD: kchatadminpass000
     MYSQL_ROOT_PASSWORD: rootpassword
     MYSQL_USER: user
+    CHOKIDAR_USEPOLLING: 1 #ファイル監視のために内部で Chokidarってのを利用していて、それを有効化するには環境変数をいじればいいらしい。
    networks:
     backend:
       ipv4_address: 172.28.1.4
@@ -41,12 +43,13 @@ services:
     container_name: kchat-front-n
     build: ./docker/react
     environment:
-      - CHOKIDAR_USEPOLLING=true
+     CHOKIDAR_USEPOLLING: 1 #ファイル監視のために内部で Chokidarってのを利用していて、それを有効化するには環境変数をいじればいいらしい。
     tty: true
     ports: #コンテナ起動時にnpm start でエラー自宅PCではエラー出なかった。FireWallの設定のせい？
-      - '8080:3000'
+      - '3000:3000'
     volumes:
       - ./src/front/:/app/
+      - ./docker/react/_log/:/root/.npm/_logs/
     working_dir: /app
     command:   sh -c "npm start"
     networks:
