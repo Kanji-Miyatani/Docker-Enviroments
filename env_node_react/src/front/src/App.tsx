@@ -19,7 +19,7 @@ function App() {
                 
             </Route>
             <Route path="/room/:roomId">
-              <Room messages={testlog.messages}/>
+              <Room/>
             </Route>
             </header>
       </div>
