@@ -28,7 +28,7 @@ const Room = ()=>{
                     })
                 }
             </ul>
-            <input type="text" ref={messageRef} className="chat-input"  /><button className="btn-send" onClick={handleClick}></button>
+            <input type="text" ref={messageRef} className="chat-input"  /><button className="btn-send" onClick={handleClick}>送信</button>
         </>
     )
 }
