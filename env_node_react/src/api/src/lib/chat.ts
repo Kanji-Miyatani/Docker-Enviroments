@@ -1,12 +1,9 @@
 import {Server} from "socket.io";
 import http from "http";
-import { Express } from "express";
 import mysql from "../db/mysql";
 import { User } from "../interfaces/Chat";
-let testStore:Array<User> = [];
-export default (app:Express)=>{
+export default (server:http.Server)=>{
 
-    const server = http.createServer(app);
     const io = new Server(server); 
     //接続確立
     io.on('connection',(socket)=>{
