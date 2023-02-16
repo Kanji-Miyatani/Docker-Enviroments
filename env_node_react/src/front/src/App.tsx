@@ -10,7 +10,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
             <header className="App-header">
-          <Link to='/room/1'>Room1</Link> <Link to='/room/2'>Room22</Link><Link to='/room/3'>Room3</Link>
+          <Link to='/room/1'>Room1</Link> <Link to='/room/2'>Room2</Link><Link to='/room/3'>Room3</Link>
             <Route exact path="/" >
                   <img src={logo} className="App-logo" alt="logo" />
                   <p>
