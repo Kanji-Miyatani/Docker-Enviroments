@@ -14,15 +14,23 @@ const Room = () => {
 
         socket.emit("sendMessage", message);
     }
+
     function pachinko() {
-        const randInt  = (min:number, max:number) => Math.floor(Math.random() * (max + 1 - min)) + min;
-        const num = randInt(1, 10)
-        if(num == 1){
-            console.log('Bonus')
+        let gamecount: number = 0;
+        let bonusflg: boolean = false
+        let tousimoney:number
+        const randInt = (min: number, max: number) => Math.floor(Math.random() * (max + 1 - min)) + min;
+        while (bonusflg == false) {
+            const num = randInt(1, 319)
+
+            gamecount++;
+
+            if (num == 1) {
+                bonusflg = true;
+            }
         }
-        else{
-            console.log(JSON.stringify(num, null, '  '))
-        }        
+        tousimoney = gamecount * 55
+        console.log(gamecount + '回であたた! 1k18回転だと仮定すると、投資' + tousimoney + '円くらいで当たったみたいです');
     }
 
     return (
@@ -39,7 +47,7 @@ const Room = () => {
                 }
             </ul>
             <input type="text" ref={messageRef} className="chat-input" /><button className="btn-send" onClick={handleClick}>送信</button>
-            <button className="btn-send" onClick={pachinko}>うんだめし 1/10</button>
+            <button className="btn-send" onClick={pachinko}>うんだめし 1/319</button>
         </>
     )
 }
