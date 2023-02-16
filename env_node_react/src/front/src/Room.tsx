@@ -18,7 +18,7 @@ const Room = () => {
     function pachinko() {
         let gamecount: number = 0;
         let bonusflg: boolean = false
-
+        let tousimoney:number
         const randInt = (min: number, max: number) => Math.floor(Math.random() * (max + 1 - min)) + min;
         while (bonusflg == false) {
             const num = randInt(1, 319)
@@ -29,8 +29,8 @@ const Room = () => {
                 bonusflg = true;
             }
         }
-
-        console.log(gamecount + '回であたた');
+        tousimoney = gamecount * 55
+        console.log(gamecount + '回であたた! 1k18回転だと仮定すると、投資' + tousimoney + '円くらいで当たったみたいです');
     }
 
     return (
