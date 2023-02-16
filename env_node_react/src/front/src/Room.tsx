@@ -39,7 +39,7 @@ const Room = () => {
                 }
             </ul>
             <input type="text" ref={messageRef} className="chat-input" /><button className="btn-send" onClick={handleClick}>送信</button>
-            <button className="btn-send" onClick={pachinko}>うんだめし</button>
+            <button className="btn-send" onClick={pachinko}>うんだめし 1/10</button>
         </>
     )
 }
