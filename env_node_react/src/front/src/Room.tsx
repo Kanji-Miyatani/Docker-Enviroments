@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useRef } from "react";
+import { useRef ,useState} from "react";
 import { Log } from "./interfaces/Chat";
 import { useSockets } from "./lib/socket.context";
 import React, { Component } from 'react'
@@ -7,7 +7,7 @@ import ReactDOM from "react-dom";
 const Room = () => {
     const { roomId } = useParams<{ roomId: string }>();
     const { socket, messages, setMessages } = useSockets();
-
+    const [logs, setLogs] = useState<string[]>([]);
     const messageRef = useRef<HTMLInputElement>(null);
 
     function handleClick() {
@@ -37,9 +37,12 @@ const Room = () => {
                 bonusflg = true;
             }
         }
-        tousimoney = gamecount * 55
-        console.log(gamecount + '回であたた! 1k18回転だと仮定すると、投資' + tousimoney + '円くらいで当たったみたいです');
-        let x = gamecount + '回であたた! 1k18回転だと仮定すると、投資' + tousimoney + '円くらいで当たったみたいです'
+
+        tousimoney = gamecount * 55;
+        const log = `${gamecount}回であたた! 1k18回転だと仮定すると、投資 ${tousimoney}円くらいで当たったみたいです`;
+        
+        setLogs([...logs,log]);
+        console.log();
     }
 
     return (
@@ -47,10 +50,10 @@ const Room = () => {
             <h1>チャット部屋:ルーム{roomId}</h1>
             <ul>
                 {
-                    messages &&
-                    messages.map((m, i) => {
+                    logs &&
+                    logs.map((log, i) => {
                         return (
-                            <li key={i}>{m.username}-{m.message}</li>
+                            <li style={{ color: '#000' }} key={i}>{log}</li>
                         )
                     })
                 }
